@@ -284,5 +284,30 @@ function calculateSum(x, y, z) {
   const obj2 = { c: 3, d: 4 };
   const mergedObj = { ...obj1, ...obj2 };
   console.log(mergedObj); // { a: 1, b: 2, c: 3, d: 4 }
+
+
+  // --------------------------------------------------------------------------------
+
+// Question 20: How do you copy properties from one object to another?
+
+// Answer:
+// You can use the Object.assign() method which copies the values and properties 
+// from one or more source objects to a target object. It returns the updated target object.
+// Syntax:
+// Object.assign(target, ...sources);
+
+// Example usage:
+const target = { a: 1, b: 2 };
+const source = { b: 3, c: 4 };
+
+const returnedTarget = Object.assign(target, source);
+
+console.log(target); // Output: { a: 1, b: 3, c: 4 }
+console.log(returnedTarget); // Output: { a: 1, b: 3, c: 4 }
+
+// Note:
+// If a property exists in both the target and source objects, the property from the source will overwrite the one from the target.
+
+
   
   
