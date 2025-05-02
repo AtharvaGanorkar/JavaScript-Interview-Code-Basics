@@ -750,3 +750,43 @@ for (let i = 0; i < 4; i++) {
 
 // In the second loop, let is block-scoped and creates a new binding of i for each iteration. 
 // So each callback closes over a different value, resulting in the output 0 1 2 3."
+
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+// Question 35: Can I redeclare let and const variables
+  
+// No, you cannot redeclare let and const variables. If you do, it throws below error
+
+// Uncaught SyntaxError: Identifier 'someVariable' has already been declared
+  
+// Explanation: The variable declaration with var keyword refers to a function scope and the variable is treated as 
+// if it were declared at the top of the enclosing scope due to hoisting feature. 
+// So all the multiple declarations contributing to the same hoisted variable without any error. 
+// Let's take an example of re-declaring variables in the same scope for both var and let/const variables.
+
+var name = "John";
+function myFunc() {
+  var name = "Nick";
+  var name = "Abraham"; // Re-assigned in the same function block
+  alert(name); // Abraham
+}
+myFunc();
+alert(name); // John
+
+
+// The block-scoped multi-declaration throws syntax error,
+
+let name = "John";
+function myFunc() {
+  let uname = "Nick";
+  let uname = "Abraham"; // Uncaught SyntaxError: Identifier 'name' has already been declared
+  alert(uname);
+}
+
+myFunc();
+alert(name);
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Question 36:
