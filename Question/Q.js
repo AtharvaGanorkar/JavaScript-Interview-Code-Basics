@@ -789,4 +789,104 @@ alert(name);
 
 // -----------------------------------------------------------------------------------------------------------------
 
-// Question 36:
+// Question 36: Does the const variable make the value immutable?
+
+// 📝 Short Note:
+
+// No, the const keyword does not make the value immutable.
+
+// It only prevents reassignment of the variable reference, not the mutation of the value it holds.
+
+// If the value is an object or array, its contents can still be changed.
+
+// 📘 Example:
+
+
+const userList = [];
+userList.push("John"); // ✅ Allowed
+console.log(userList); // Output: ['John']
+
+userList = ["Doe"];    // ❌ Error: Assignment to constant variable
+
+// 🗣️ How to explain in an interview:
+
+// "const ensures that the variable cannot be reassigned,
+//  but it doesn't make the actual data immutable. For example, if you declare an array or object with const, 
+//  you can still modify its contents—like adding or removing elements. To make data truly immutable, 
+//  you would need to use techniques like Object.freeze() or use immutable data structures."
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Question 37 : How do you write multi-line strings in template literals
+
+// In ES5, you would have to use newline escape characters('\n') and concatenation symbols(+) 
+// in order to get multi-line strings.
+
+console.log("This is string sentence 1\n" + "This is string sentence 2");
+
+// Whereas in ES6, You don't need to mention any newline sequence character,
+
+console.log(`This is string sentence
+'This is string sentence 2`);
+
+// --------------------------------------------------------------------------------------------------------------------------
+
+// Question 38: What are raw strings
+
+// ES6 provides a raw strings feature using the String.raw() method which is used to get the raw string form of template strings.
+//  This feature allows you to access the raw strings as they were entered, without processing escape sequences. For example, 
+// the usage would be as below,
+
+var calculationString = String.raw`The sum of numbers is \n${
+  1 + 2 + 3 + 4
+}!`;
+console.log(calculationString); // The sum of numbers is \n10!
+
+// If you don't use raw strings, the newline character sequence will be processed by displaying the output in multiple lines
+
+var calculationString = `The sum of numbers is \n${1 + 2 + 3 + 4}!`;
+console.log(calculationString);
+// The sum of numbers is
+// 10!
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+
+// Question 39: What is the for...of statement in JavaScript?
+// 📝 Short Note:
+
+// The for...of statement is used to iterate over iterable objects, including:
+
+// Arrays
+
+// Strings
+
+// Maps
+
+// Sets
+
+// NodeLists
+
+// Arguments objects
+
+// Custom iterable objects
+
+// It allows you to loop through the values (not keys or indices) of an iterable.
+
+// 📘 Example:
+
+let arrayIterable = [10, 20, 30, 40, 50];
+
+for (let value of arrayIterable) {
+  value++; // This only affects the local loop variable, not the array itself
+  console.log(value); // Output: 11 21 31 41 51
+}
+// 🧠 Key Point:
+// for...of does not mutate the original array unless explicitly updated via index.
+
+// If you need index access, use forEach() or a classic for loop.
+
+// 🗣️ How to explain in an interview:
+
+// "for...of is a modern loop introduced in ES6 that lets you iterate directly over the values of iterable 
+// objects like arrays and strings. Unlike for...in, which loops over property keys, for...of focuses purely on the values, 
+// making it cleaner and more intuitive for array or iterable traversal."
