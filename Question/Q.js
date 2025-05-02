@@ -309,5 +309,444 @@ console.log(returnedTarget); // Output: { a: 1, b: 3, c: 4 }
 // If a property exists in both the target and source objects, the property from the source will overwrite the one from the target.
 
 
+
+  // ------------------------------------------------------------------------------------------------------------------------------------
+
+// Question 21: How do you get enumerable key and value pairs?
+// 📝 Short Note:
+
+// The Object.entries() method returns an array of a given object's own enumerable string-keyed property [key, value] pairs.
+
+// The array returned follows the same order as a for...in loop.
+
+// This method is particularly useful when you need to iterate over both keys and values in a concise manner.
   
+const object = {
+  a: "Good morning",
+  b: 100,
+};
+
+for (let [key, value] of Object.entries(object)) {
+  console.log(`${key}: ${value}`);
+  // Output:
+  // a: Good morning
+  // b: 100
+}
+
+// Example 2 - Array of Objects
+
+const objectArray = [
+  {
+    a: "Good morning",
+    b: 100,
+  },
+  {
+    a: "Good Afternoon",
+    b: 100,
+  }
+];
+
+for (let obj of objectArray) {
+  for (let [key, value] of Object.entries(obj)) {
+    console.log(`${key} : ${value}`);
+  }
+}
+
+// How to explain in an interview:
+
+// "The Object.entries() method is a great tool when you want to iterate over both the keys and values of an object 
+// or array of objects. It returns an array of key-value pairs, making it easier to loop through with a for...of loop 
+// or other iterable structures. I used this method in the example to iterate through an object and even an array of 
+// objects to log both the keys and values."
+
+
+// -----------------------------------------------------------------------------------------------------------------------
+
+// Question 22: What is the main difference between Object.values() and Object.entries() methods?
+// 📝 Short Note:
+
+// Both Object.values() and Object.entries() are used to work with the properties of an object.
+
+// Object.values() returns an array of the values of the object's properties.
+
+// Object.entries() returns an array of the key-value pairs (each as a [key, value] array).
+
+
+// 📘 Example of Object.values():
+
+javascript
+Copy
+Edit
+const object = {
+  a: "Good morning",
+  b: 100,
+};
+
+for (let value of Object.values(object)) {
+  console.log(`${value}`);
+  // Output:
+  // Good morning
+  // 100
+}
+// 📘 Example of Object.entries():
+
+javascript
+Copy
+Edit
+const object = {
+  a: "Good morning",
+  b: 100,
+};
+
+for (let [key, value] of Object.entries(object)) {
+  console.log(`${key}: ${value}`);
+  // Output:
+  // a: Good morning
+  // b: 100
+}
+// 🗣️ How to explain in an interview:
+
+// "The main difference between Object.values() and Object.entries() is that while Object.values() 
+// returns only the values of the object’s properties, Object.entries() returns both the keys and
+//  values in the form of an array of pairs. You can use Object.values() when you only need the values,
+//   but Object.entries() is more useful when you need both keys and values."
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+// ✅ Question 23: How can you get the list of keys of any object?
+// 📝 Short Note:
+
+// The Object.keys() method is used to retrieve an array of the keys of a given object.
+
+// It returns the keys in the same order as they are listed in a typical for...in loop.
+
+// 📘 Example:
+
+
+const user = {
+  name: "John",
+  gender: "male",
+  age: 40,
+};
+
+console.log(Object.keys(user)); // Output: ['name', 'gender', 'age']
+
+// 🗣️ How to explain in an interview:
+
+// "To get the list of keys from an object, you can use Object.keys(). 
+// It returns an array of property names (keys) from the object, 
+// which you can then iterate over or use for other purposes. 
+// It behaves similarly to how the keys would appear in a for...in loop."
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// Question 24: How do you create an object with a prototype?
+// 📝 Short Note:
+
+// The Object.create() method is used to create a new object with the specified prototype object and optional properties.
+
+// It allows you to set an existing object as the prototype for the newly created object.
+
+// This method returns the new object with the specified prototype and properties.
+
+// 📘 Example:
+
+const Nuser = {
+  name: "John",
+  printInfo: function () {
+    console.log(`My name is ${this.name}.`);
+  },
+};
+
+const admin = Object.create(Nuser);
+
+admin.name = "Nick"; // "name" is set on "admin", not on "user"
+
+admin.printInfo(); // Output: My name is Nick
+
+// 🗣️ How to explain in an interview:
+
+// "To create an object with a prototype, you can use the Object.create() method. 
+// It takes an existing object as an argument and creates a new object that inherits from that prototype. 
+// This allows for prototype chaining, where the new object can access properties and methods of the prototype.
+// In the example, admin inherits from user,
+// but admin can have its own properties, like name, which will override the prototype's name."
+
+// -------------------------------------------------------------------------------------------------------------------------
+
+// Question 25 : What are JavaScript accessors?
+// 📝 Short Note:
+
+// JavaScript accessors (also known as getters and setters) allow you to define methods for getting and setting property values of an object.
+
+// Introduced in ECMAScript 5, accessors are used to define computed properties where you can control how properties are accessed or modified.
+
+// Getters use the get keyword and allow you to define a method that is called when a property is accessed.
+
+// Setters use the set keyword and allow you to define a method that is called when a property is assigned a value.
+
+// 📘 Example:
+
+
+var Muser = {
+  firstName: "John",
+  lastName: "Abraham",
+  language: "en",
   
+  // Getter for 'lang'
+  get lang() {
+    return this.language;
+  },
+  
+  // Setter for 'lang'
+  set lang(lang) {
+    this.language = lang;
+  },
+};
+
+console.log(Muser.lang); // Output: 'en' (getter access)
+user.lang = "fr"; // Setter used to set the 'language' property
+console.log(Muser.lang); // Output: 'fr' (getter access after setter)
+
+// 🗣️ How to explain in an interview:
+
+// "JavaScript accessors, including getters and setters, allow you to control how properties are accessed and modified. 
+// The get keyword defines a method that is invoked when a property is accessed, and the set keyword defines a method that 
+// is triggered when a property is assigned a new value. This is particularly useful for computed properties or when you want
+//  to add custom logic when getting or setting values. In the example, I used the getter lang to retrieve the language and 
+//  the setter lang to modify it."
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+// Question 26 : What is a Unary Operator in JavaScript?
+
+// 📝 Short Note:
+
+// A Unary operator operates on a single operand.
+
+// The + unary operator is commonly used to convert a value to a number.
+
+// If the value cannot be converted, it becomes NaN (Not a Number).
+
+// 📘 Example:
+
+
+var x = "100";
+var y = +x;
+console.log(typeof x, typeof y); // string, number
+
+var a = "Hello";
+var b = +a;
+console.log(typeof a, typeof b, b); // string, number, NaN
+
+// 🗣️ How to explain in an interview:
+
+// "A unary operator takes one operand. In JavaScript, the unary plus (+) operator is often used to convert a string 
+// or other type into a number. If the value is numeric-like, it successfully converts it. If not, it returns NaN. 
+// For example, +\"100\" becomes 100, but +\"Hello\" results in NaN."
+
+// ---------------------------------------------------------------------------------------------------------------------------
+
+// ✅ Question 27: How do you sort elements in an array in JavaScript?
+// 📝 Short Note:
+
+// The sort() method is used to sort array elements in place.
+
+// It returns the sorted array.
+
+// By default, it sorts as strings, using Unicode code point order.
+
+// For numeric or custom sorting, a compare function should be used.
+
+// 📘 Example:
+
+
+var months = ["Aug", "Sep", "Jan", "June"];
+months.sort();
+console.log(months); // ["Aug", "Jan", "June", "Sep"]
+
+// 🗣️ How to explain in an interview:
+
+// "The sort() method sorts elements of an array in place. Without a compare function, 
+// it treats all elements as strings and sorts them based on Unicode order. So even months like 
+// 'Jan', 'June', and 'Sep' will be sorted lexicographically. For more control, especially with 
+// numbers or dates, a custom compare function is recommended."
+
+// --------------------------------------------------------------------------------------------------------------------------
+
+// Question 28 : What is the purpose of compareFunction while sorting arrays?
+// 📝 Short Note:
+
+// By default, sort() converts elements to strings and sorts by Unicode code point value.
+
+// A compareFunction can be provided to define custom sort logic, such as numeric or descending order.
+
+// 📘 Example:
+
+
+let umbers = [1, 2, 5, 3, 4];
+numbers.sort((a, b) => b - a);
+console.log(umbers); // [5, 4, 3, 2, 1]
+
+// 🗣️ How to explain in an interview:
+
+// "The default sort in JavaScript is lexicographical, so sorting numbers without a compare function might give incorrect results like [1, 10, 2]. 
+// To sort numerically, we use a compare function. 
+// In the example, (a, b) => b - a sorts the array in descending order by comparing the values directly."
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+// Question 29 : How do you reverse an array in JavaScript?
+// 📝 Short Note:
+
+// The reverse() method reverses the order of elements in an array in place.
+
+// It's often used after a sort to convert ascending order to descending, or vice versa.
+
+// 📘 Example:
+
+let Numbers = [1, 2, 5, 3, 4];
+numbers.sort((a, b) => b - a); // [5, 4, 3, 2, 1]
+numbers.reverse();             // [1, 2, 3, 4, 5]
+console.log(Numbers);
+
+// 🗣️ How to explain in an interview:
+
+// "The reverse() method flips the order of array elements in place. 
+// It's useful if you want to quickly invert the order of a sorted array—for instance, 
+// turning a descending sort into ascending without re-sorting."
+
+// -------------------------------------------------------------------------------------------------------------------------------
+
+// Question 30:How do you find min and max value in an array
+
+// You can use Math.min and Math.max methods on array variables to find the minimum and maximum elements within an array. 
+// Let's create two functions to find the min and max value with in an array,
+
+var marks = [50, 20, 70, 60, 45, 30];
+function findMin(arr) {
+  return Math.min.apply(null, arr);
+}
+function findMax(arr) {
+  return Math.max.apply(null, arr);
+}
+
+console.log(findMin(marks));
+console.log(findMax(marks));
+
+// ----------------------------------------------------------------------------------------------------
+// Question 31: What is a comma operator
+
+// The comma operator is used to evaluate each of its operands from left to right and returns the value of the last operand. 
+// This is totally different from comma usage within arrays, objects, and function arguments and parameters. 
+// For example, the usage for numeric expressions would be as below,
+
+var x = 1;
+x = (x++, x);
+
+console.log(x); // 2
+
+// ----------------------------------------------------------------------------------------------------------
+
+// Question 32: How do you perform form validation using JavaScript?
+// 📝 Short Note:
+
+// JavaScript can be used to validate HTML form fields before the form is submitted.
+
+// This is done by writing a function that checks user input, and returning false if the data is invalid to prevent form submission.
+
+// 📘 Example:
+
+
+{/* <form name="myForm" onsubmit="return validateForm()" method="post">
+  User name: <input type="text" name="uname" />
+  <input type="submit" value="Submit" />
+</form>
+
+<script>
+function validateForm() {
+  var x = document.forms["myForm"]["uname"].value;
+  if (x === "") {
+    alert("The username shouldn't be empty");
+    return false; // Prevents form submission
+  }
+}
+</script> */}
+
+// 💡 How it works:
+
+// The form calls validateForm() on submission.
+
+// If the uname field is empty, an alert is shown and false is returned.
+
+// Returning false cancels the form submission.
+
+// 🗣️ How to explain in an interview:
+
+// "To validate a form in JavaScript, I typically write a validation function that checks the form fields before submission.
+//  For example, I can check if a required field like username is empty, and if it is,
+//  I show an alert and return false to prevent submission. 
+//  This helps improve user experience by providing immediate feedback without waiting for a server response."
+
+// -------------------------------------------------------------------------------------------------------------------------
+
+// Question 33 : How do you check whether an array includes a particular value or not
+
+// The Array#includes() method is used to determine whether an array includes a particular value among its entries by returning either true or false. 
+// Let's see an example to find an element(numeric and string) within an array.
+
+var numericArray = [1, 2, 3, 4];
+console.log(numericArray.includes(3)); // true
+
+var stringArray = ["green", "yellow", "blue"];
+console.log(stringArray.includes("blue")); //true
+
+// -------------------------------------------------------------------------------------------------------------------------------
+
+// Question 34: What is the output of the following for loops and why?
+// 📘 Code Example:
+
+
+// Loop with 'var'
+for (var i = 0; i < 4; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+
+// Loop with 'let'
+for (let i = 0; i < 4; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+
+// 🧠 Output:
+// First Loop with var:
+// Output: 4 4 4 4
+
+// Second Loop with let:
+// Output: 0 1 2 3
+
+// 🧾 Explanation:
+
+// 🔹 var (Function/Global Scope):
+// The variable i is declared with var, which is function-scoped or globally scoped.
+
+// The setTimeout function gets executed after the loop finishes, at which point i is 4.
+
+// All callbacks in the loop refer to the same shared i, which ends up as 4.
+
+// 🔹 let (Block Scope):
+
+// With let, each iteration of the loop creates a new scoped i.
+
+// Each setTimeout callback captures its own unique i value from that iteration.
+
+// Therefore, the values printed are 0, 1, 2, and 3.
+
+// 🗣️ How to explain in an interview:
+
+// "The key difference here is the scoping of var and let. 
+// In the first loop, var is function-scoped, so all the setTimeout callbacks reference the same i, which is 4 after the loop ends. 
+// That’s why it prints 4 four times. 
+
+// In the second loop, let is block-scoped and creates a new binding of i for each iteration. 
+// So each callback closes over a different value, resulting in the output 0 1 2 3."
