@@ -890,3 +890,190 @@ for (let value of arrayIterable) {
 // "for...of is a modern loop introduced in ES6 that lets you iterate directly over the values of iterable 
 // objects like arrays and strings. Unlike for...in, which loops over property keys, for...of focuses purely on the values, 
 // making it cleaner and more intuitive for array or iterable traversal."
+
+// ------------------------------------------------------------------------------------------------------------------------
+
+// Question 40: What is the output of below spread operator array
+
+[..."John Resig"];
+// The output of the array is ['J', 'o', 'h', 'n', ' ', 'R', 'e', 's', 'i', 'g']
+
+// Explanation: The string is an iterable type and the spread operator within an array maps every character of 
+// an iterable to one element. Hence, each character of a string becomes an element within an Array.
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+
+// Question 41: How do you combine two or more arrays
+
+// The concat() method is used to join two or more arrays by returning a new array containing all the elements. 
+// The syntax would be as below,
+
+array1.concat(array2, array3, ..., arrayX)
+
+// Let's take an example of array's concatenation with veggies and fruits arrays,
+
+var veggies = ["Tomato", "Carrot", "Cabbage"];
+var fruits = ["Apple", "Orange", "Pears"];
+var veggiesAndFruits = veggies.concat(fruits);
+console.log(veggiesAndFruits); // Tomato, Carrot, Cabbage, Apple, Orange, Pears
+
+// ----------------------------------------------------------------------------------------------------------------------
+
+// Question 42: What is the difference between Shallow and Deep copy
+
+// There are two ways to copy an object,
+
+// Shallow Copy: 
+// Shallow copy is a bitwise copy of an object. 
+// A new object is created that has an exact copy of the values in the original object. 
+// If any of the fields of the object are references to other objects, 
+// just the reference addresses are copied i.e., only the memory address is copied.
+
+Example
+
+var empDetails = {
+  name: "John",
+  age: 25,
+  expertise: "Software Developer",
+};
+
+// to create a duplicate
+
+var empDetailsShallowCopy = empDetails; //Shallow copying!
+
+// if we change some property value in the duplicate one like this:
+
+empDetailsShallowCopy.name = "Johnson";
+
+// The above statement will also change the name of empDetails, since we have a shallow copy. 
+// That means we're losing the original data as well.
+
+// Deep copy: 
+// A deep copy copies all fields, and makes copies of dynamically allocated memory pointed to by the fields. 
+// A deep copy occurs when an object is copied along with the objects to which it refers.
+
+Example
+
+var empDetails = {
+  name: "John",
+  age: 25,
+  expertise: "Software Developer",
+};
+
+// Create a deep copy by using the properties from the original object into new variable
+
+var empDetailsDeepCopy = {
+  name: empDetails.name,
+  age: empDetails.age,
+  expertise: empDetails.expertise,
+};
+// Now if you change empDetailsDeepCopy.name, it will only affect empDetailsDeepCopy & not empDetails
+
+// ------------------------------------------------------------------------------------------------------------------
+
+// Question 43: How do you trim a string at the beginning or ending
+
+// The trim method of string prototype is used to trim on both sides of a string. 
+// But if you want to trim especially at the beginning or ending of the string then 
+// you can use trimStart/trimLeft and trimEnd/trimRight methods. 
+
+// Let's see an example of these methods on a greeting message.
+
+var greeting = "   Hello, Goodmorning!   ";
+
+console.log(greeting); // "   Hello, Goodmorning!   "
+console.log(greeting.trimStart()); // "Hello, Goodmorning!   "
+console.log(greeting.trimLeft()); // "Hello, Goodmorning!   "
+
+console.log(greeting.trimEnd()); // "   Hello, Goodmorning!"
+console.log(greeting.trimRight()); // "   Hello, Goodmorning!"
+
+// --------------------------------------------------------------------------------------
+
+// Question 44: What is the output of the below function calls and why?
+
+const circle = {
+  radius: 20,
+  diameter() {
+    return this.radius * 2;
+  },
+  perimeter: () => 2 * Math.PI * this.radius,
+};
+
+console.log(circle.diameter());
+console.log(circle.perimeter());
+
+// 🧾 Output:
+40
+NaN
+
+// 🧠 Explanation:
+1. circle.diameter():
+
+// Defined using a regular function.
+
+// In this case, this.radius correctly refers to the radius property of the circle object.
+
+So, 20 * 2 = 40.
+
+// ✅ Output: 40
+
+2. circle.perimeter():
+// Defined using an arrow function.
+
+// Arrow functions do not have their own this; they inherit this from the surrounding (lexical) scope.
+
+// In this case, the surrounding scope is global, and this.radius is undefined.
+
+// So the result is 2 * Math.PI * undefined → NaN.
+
+// ❌ Output: NaN
+
+// // 🗣️ How to explain in an interview:
+// "The key point here is the behavior of this in arrow functions versus regular functions. 
+// diameter() is a regular function, so this correctly refers to the object itself, returning 40. 
+// However, perimeter is an arrow function, which captures this from the outer scope. 
+// Since the outer scope doesn't have a radius property, this.radius becomes undefined, and the result is NaN."
+
+// -----------------------------------------------------------------------------------------------------------------
+
+// Question 45: How do you get unique values of an array
+
+// You can get unique values of an array with the combination of Set and rest expression/spread(...) syntax.
+
+console.log([...new Set([1, 2, 4, 4, 3])]); // [1, 2, 4, 3]
+
+// -----------------------------------------------------------------------------------------------------------
+
+// Question 46 : How do you empty an array
+
+// You can empty an array quickly by setting the array length to zero.
+
+let cities = ["Singapore", "Delhi", "London"];
+cities.length = 0; // cities becomes []
+
+
+// How do you round numbers to certain decimals
+// You can round numbers to a certain number of decimals using toFixed method from native javascript.
+
+let pie = 3.141592653;
+pie = pie.toFixed(3); // 3.142
+
+
+// What is the easiest way to convert an array to an object
+// You can convert an array to an object with the same data using spread(...) operator.
+
+var fruits = ["banana", "apple", "orange", "watermelon"];
+var fruitsObject = { ...fruits };
+console.log(fruitsObject); // {0: "banana", 1: "apple", 2: "orange", 3: "watermelon"}
+
+
+// How do you create an array with some data
+// You can create an array with some data or an array with the same values using fill method.
+
+var newArray = new Array(5).fill("0");
+console.log(newArray); // ["0", "0", "0", "0", "0"]
+
+// ------------------------------------------------------------------------------------------------
+
+// Question 47 :
