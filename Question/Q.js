@@ -1076,4 +1076,267 @@ console.log(newArray); // ["0", "0", "0", "0", "0"]
 
 // ------------------------------------------------------------------------------------------------
 
-// Question 47 :
+// Question 47 : How do you display data in a tabular format using console object
+// The console.table() is used to display data in the console in a tabular format to visualize 
+// complex arrays or objects.
+
+// const users = [
+//   { name: "John", id: 1, city: "Delhi" },
+//   { name: "Max", id: 2, city: "London" },
+//   { name: "Rod", id: 3, city: "Paris" },
+// ];
+console.table(users);
+
+// The data visualized in a table format,
+
+// Screenshot Not: Remember that console.table() is not supported in IE.
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// Question 48: How do you flattening multi dimensional arrays
+// Flattening bi-dimensional arrays is trivial with Spread operator.
+
+const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
+const flattenArr = [].concat(...biDimensionalArr); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
+
+// ---------------------------------------------------------------------------------------------------------------------------
+
+// Question 49: What is the easiest way to resize an array
+// The length property of an array is useful to resize or empty an array quickly. 
+
+// Let's apply length property on number array to resize the number of elements from 5 to 2,
+
+var array = [1, 2, 3, 4, 5];
+console.log(array.length); // 5
+
+array.length = 2;
+console.log(array.length); // 2
+console.log(array); // [1,2]
+
+// and the array can be emptied too
+
+var array = [1, 2, 3, 4, 5];
+array.length = 0;
+console.log(array.length); // 0
+console.log(array); // []
+
+// -------------------------------------------------------------------------------------------------------------
+
+// Question 50: What are the different ways to create sparse arrays in JavaScript?
+
+// 📝 Definition:
+
+// A sparse array is an array where some indices are missing or undefined, i.e., not all elements between 0 and length - 1 are defined.
+
+// 🔹 1. Using Array Literals (Omitting Values):
+
+const justiceLeague = ["Superman", "Aquaman", , "Batman"];
+console.log(justiceLeague); // ['Superman', 'Aquaman', <1 empty item>, 'Batman']
+
+// Skipping a value (double comma ,,) creates a hole at that index.
+
+// 🔹 2. Using the Array Constructor (Array(length)):
+
+const array = Array(3);
+console.log(array); // [ <3 empty items> ]
+
+// This creates an array with the specified length but no elements (i.e., empty slots).
+
+// 🔹 3. Using the delete Operator:
+
+const heroes = ["Superman", "Aquaman", "Batman"];
+delete heroes[1];
+console.log(heroes); // ['Superman', <1 empty item>, 'Batman']
+
+// Deleting an index removes the element but does not reduce array length, leaving a hole.
+
+// 🔹 4. Increasing the length Property Manually:
+
+const justiceLeague = ["Superman", "Aquaman", "Batman"];
+justiceLeague.length = 5;
+console.log(justiceLeague); // ['Superman', 'Aquaman', 'Batman', <2 empty items>]
+
+// Expanding the .length adds empty slots at the end of the array.
+
+// // 🗣️ How to explain in an interview:
+
+// "Sparse arrays in JavaScript are arrays that have holes—i.e., some indices are empty or undefined. 
+// They can be created by omitting values in literals, using Array(length), the delete operator, or increasing the array's .
+// length property manually. These empty slots are different from undefined, as they are technically 'missing' elements 
+// and are skipped by methods like forEach or map."
+
+// -------------------------------------------------------------------------------------------------------------
+//  Question 51: How do you reverse an array without modifying original array?
+
+// The reverse() method reverses the order of the elements in an array but it mutates the original array. 
+
+// Let's take a simple example to demonistrate this case
+
+const originalArray = [1, 2, 3, 4, 5];
+const newArray = originalArray.reverse();
+
+console.log(newArray); // [ 5, 4, 3, 2, 1]
+console.log(originalArray); // [ 5, 4, 3, 2, 1]
+
+// There are few solutions that won't mutate the original array. Let's take a look.
+
+// Using slice and reverse methods: In this case, just invoke the slice() method on the array to create a shallow copy 
+// followed by reverse() method call on the copy.
+
+const originalArray = [1, 2, 3, 4, 5];
+const newArray = originalArray.slice().reverse(); //Slice an array gives a new copy
+
+console.log(originalArray); // [1, 2, 3, 4, 5]
+console.log(newArray); // [ 5, 4, 3, 2, 1]
+
+// Using spread and reverse methods: In this case, let's use the spread syntax (...) 
+// to create a copy of the array followed by reverse() method call on the copy.
+
+const originalArray = [1, 2, 3, 4, 5];
+const newArray = [...originalArray].reverse();
+
+console.log(originalArray); // [1, 2, 3, 4, 5]
+console.log(newArray); // [ 5, 4, 3, 2, 1]
+
+// Using reduce and spread methods: Here execute a reducer function on an array elements and append 
+// the accumulated array on right side using spread syntax
+
+const originalArray = [1, 2, 3, 4, 5];
+const newArray = originalArray.reduce((accumulator, value) => {
+  return [value, ...accumulator];
+}, []);
+
+console.log(originalArray); // [1, 2, 3, 4, 5]
+console.log(newArray); // [ 5, 4, 3, 2, 1]
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// Question 52 : How do you create a custom HTML element in JavaScript?
+
+// 📝 Short Answer:
+// Creating a custom HTML element involves:
+
+// Defining a class that extends HTMLElement.
+
+// Using customElements.define() to register it.
+
+// Using the new element as a custom HTML tag in your page.
+
+// 🔹 Step-by-Step Example:
+// 1️⃣ Define a Custom Element Class:
+
+class CustomElement extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = "This is a custom element";
+  }
+}
+
+// connectedCallback() is a lifecycle method called when the element is added to the DOM.
+
+// 2️⃣ Register the Element:
+
+customElements.define("custom-element", CustomElement);
+
+// This tells the browser that <custom-element> should use your class logic.
+
+// 3️⃣ Use It in HTML:
+
+<body>
+  <custom-element></custom-element>
+</body>
+// ✅ Output:
+// The element will render:
+// This is a custom element
+
+// 🗣️ How to explain in an interview:
+
+// "To create a custom HTML element, I use the Web Components API. 
+// I define a class that extends HTMLElement and use connectedCallback() to control its behavior. 
+// Then I register it with customElements.define(). This allows me to use my custom tag in HTML just like any native element, 
+// making it reusable and encapsulated."
+
+// -------------------------------------------------------------------------------------------------------------------------------
+
+// Question 53: What is optional chaining in JavaScript?
+// 📝 Short Note:
+
+// Optional chaining (?.) is a safe way to access deeply nested object properties or call functions that might not exist, 
+// without causing a runtime error if any part of the chain is null or undefined.
+
+// 📘 Syntax & Example:
+
+const adventurer = {
+  name: "Alice",
+  cat: {
+    name: "Dinah",
+  },
+};
+
+const dogName = adventurer.dog?.name;
+console.log(dogName); // Output: undefined
+
+console.log(adventurer.someNonExistentMethod?.()); // Output: undefined
+
+// adventurer.dog?.name: Checks if dog exists before trying to access name.
+
+// adventurer.someNonExistentMethod?.(): Checks if the method exists before invoking it.
+
+// 🔍 Why it's useful:
+// Prevents TypeError: "Cannot read property 'x' of undefined"
+
+// Makes code cleaner and more readable than manual checks.
+
+// ✅ Instead of:
+
+if (obj && obj.child && obj.child.name) {
+  // safe access
+}
+// You can write:
+
+obj.child?.name;
+
+// 🗣️ How to explain in an interview:
+
+// "Optional chaining allows safe property access. If any reference in the chain is null or undefined, 
+// it short-circuits and returns undefined, instead of throwing an error. 
+// It’s especially useful when working with deeply nested objects or uncertain data structures, 
+// improving both code safety and readability."
+
+// ----------------------------------------------------------------------------------------------------------------
+
+// Question 54: How to verify if a variable is an array?
+
+// It is possible to check if a variable is an array instance using 3 different ways,
+
+// Array.isArray() method:
+
+// The Array.isArray(value) utility function is used to determine whether value is an array or not.
+
+
+const numbers = [1, 2, 3];
+const user = { name: "John" };
+Array.isArray(numbers); // true
+Array.isArray(user); //false
+
+// instanceof operator:
+
+// The instanceof operator is used to check the type of an array at run time. 
+// It returns true if the type of a variable is an Array other false for other type.
+
+const numbers = [1, 2, 3];
+const user = { name: "John" };
+console.log(numbers instanceof Array); // true
+console.log(user instanceof Array); // false
+
+// Checking constructor type:
+
+// The constructor property of the variable is used to determine whether the variable Array type or not.
+
+const numbers = [1, 2, 3];
+const user = { name: "John" };
+console.log(numbers.constructor === Array); // true
+console.log(user.constructor === Array); // false
+
+// --------------------------------------------------------------------------------------------------------------------
+
+//  Question 55:
