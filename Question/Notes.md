@@ -628,4 +628,243 @@ Promises help you manage things that take time, like getting data from a server,
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
 
-<!-- Question 11:  -->
+<!-- Question 11: What is the purpose of the delete operator?  -->
+
+➡️ Definition:
+The delete operator in JavaScript is used to remove a property from an object, along with its value.
+
+➡️ Explanation:
+When you want to completely remove a property from an object — not just set it to null or undefined, but actually erase it — you use the delete operator.
+
+After deletion, the property will no longer exist in the object.
+
+➡️ Example:
+
+var user = { firstName: "John", lastName: "Doe", age: 20 };
+delete user.age;
+
+console.log(user); 
+// Output: { firstName: "John", lastName: "Doe" }
+
+➡️ Interview Ready Answer:
+"The delete operator is used to completely remove a property from an object in JavaScript. Once deleted, the property is no longer accessible within the object."
+
+<!-- --------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 12: What is typeof operator? -->
+
+➡️ Definition:
+The typeof operator is used to find the type of a JavaScript variable or expression. It returns a string describing the type.
+
+➡️ Explanation:
+typeof helps identify if a variable is a string, number, boolean, object, function, etc.
+It's very useful for type checking at runtime.
+
+➡️ Example:
+
+typeof "John Abraham"; // "string"
+typeof (1 + 2);         // "number"
+typeof [1, 2, 3];       // "object" (arrays are objects in JavaScript)
+
+➡️ Interview Ready Answer:
+"The typeof operator in JavaScript is used to determine the data type of a variable or an expression. It returns a string such as 'string', 'number', 'object', etc."
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 13:  What is undefined property? -->
+
+➡️ Definition:
+undefined means a variable has been declared but not yet assigned any value.
+
+➡️ Explanation:
+When you declare a variable without initializing it, JavaScript automatically assigns it a value of undefined.
+The typeof an undefined variable also returns undefined.
+
+➡️ Example:
+
+var user; // Value is undefined
+console.log(typeof user); // "undefined"
+
+// Explicitly setting a variable to undefined
+user = undefined;
+
+➡️ Interview Ready Answer:
+"In JavaScript, a variable is undefined when it has been declared but not initialized with a value. The typeof such a variable returns 'undefined'."
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 14 : What is null value? -->
+
+➡️ Definition:
+null is a special primitive value in JavaScript that represents the intentional absence of any object value.
+
+➡️ Explanation:
+null is assigned to a variable to indicate "no value" on purpose. Interestingly, typeof null returns "object" — this is a known quirk in JavaScript.
+
+➡️ Example:
+
+var user = null;
+console.log(typeof user); // "object"
+
+➡️ Interview Ready Answer:
+"In JavaScript, null represents an intentional absence of any object value. It's used to explicitly indicate that a variable should have 'no value'. However, due to a JavaScript bug, typeof null returns 'object'."
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------->
+
+<!-- Question 15 :  What is the difference between an Attribute and a Property? -->
+
+➡️ Definition:
+Attributes are the initial values defined in the HTML markup.
+
+Properties are the current state of those elements once the page is loaded and the DOM is created.
+
+➡️ Explanation:
+Attributes exist in the HTML.
+
+Properties exist in the DOM object created by the browser from that HTML.
+
+When the browser parses the HTML, it creates a corresponding DOM object and copies the attribute values into properties where appropriate.
+However, after that point, attributes and properties can become different.
+
+Changing an attribute does not always change the property, and vice versa.
+
+➡️ Example:
+Suppose we have this HTML:
+
+<input type="text" value="Name:">
+
+When the page loads:
+
+const input = document.querySelector("input");
+
+// Access attribute
+console.log(input.getAttribute("value")); // "Name:"
+
+// Access property
+console.log(input.value); // "Name:"
+
+Now, if the user types "Good morning" into the text field:
+
+console.log(input.getAttribute("value")); // "Name:" (original attribute)
+console.log(input.value);                 // "Good morning" (updated property)
+
+If you manually update the attribute:
+
+input.setAttribute("value", "Good evening");
+
+console.log(input.getAttribute("value")); // "Good evening"
+console.log(input.value);                 // "Good morning"
+
+Important:
+Updating an attribute doesn’t immediately update the property, unless explicitly done, and vice versa.
+
+➡️ Interview Ready Answer:
+"Attributes are what we define in the HTML markup, while properties are the current values stored in DOM objects. For example, in an <input> element, the value attribute sets the initial value, but the value property reflects the current state. After user interaction, the property might change, but the attribute remains the same unless manually updated."
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Question 16 : What is DOM in JavaScript? -->
+
+   Definition:
+  DOM stands for Document Object Model.
+
+It is a programming interface provided by the browser for HTML and XML documents.
+
+DOM represents the page so that programs (like JavaScript) can change the document structure, style, and content dynamically.
+
+➡️ Explanation:
+When a web page loads, the browser converts the HTML into a structured tree-like model called the DOM.
+
+Each HTML element (like <div>, <p>, <button>) becomes a node or object inside this DOM tree.
+
+JavaScript can access, modify, add, or delete these nodes to make web pages dynamic without reloading.
+
+You can think of the DOM as a live representation of the web page.
+
+<!--  -->
+
+🧠 Key Points about DOM:
+
+DOM is language-independent. (You can use JavaScript, Python, etc., but JavaScript is most common in browsers.)
+
+Every element, attribute, and text inside HTML becomes a node in the DOM.
+
+JavaScript uses the DOM API to read/write elements dynamically.
+
+➡️ Example:
+Suppose you have this HTML:
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1 id="title">Hello World</h1>
+    <button id="changeTextBtn">Change Text</button>
+
+    <script>
+      const titleElement = document.getElementById("title");
+      const buttonElement = document.getElementById("changeTextBtn");
+
+      buttonElement.addEventListener("click", function () {
+        titleElement.textContent = "Text changed through DOM!";
+      });
+    </script>
+  </body>
+</html>
+✅ Here:
+
+document.getElementById() is used to access DOM nodes.
+
+.textContent property is used to modify the DOM.
+
+Result: When you click the button, the text inside the <h1> changes without reloading the page.
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------ -->
+
+<!--  Question 17: How do you make the first letter of a string uppercase? -->
+
+➡️ Definition:
+In JavaScript, to capitalize the first letter of a string, you need to:
+
+Extract the first character,
+
+Convert it to uppercase,
+
+Concatenate it back with the rest of the string.
+
+➡️ Explanation:
+Strings in JavaScript are immutable, meaning you cannot change them directly.
+Instead, you create a new string by combining parts:
+
+Use charAt(0) to get the first character.
+
+Use toUpperCase() to convert that character to uppercase.
+
+Use slice(1) to get the remaining part of the string.
+
+Combine both parts using the + operator.
+
+
+<!--  -->
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+console.log(capitalizeFirstLetter("hello")); // Output: "Hello"
+console.log(capitalizeFirstLetter("javascript")); // Output: "Javascript"
+
+✅ How it works:
+
+string.charAt(0) → gets first character (e.g., "h")
+
+.toUpperCase() → converts it to "H"
+
+string.slice(1) → returns "ello"
+
+Combined result: "H" + "ello" → "Hello"
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+<!-- Question 18: -->
