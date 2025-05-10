@@ -489,4 +489,143 @@ console.log(counter); // undefined (counter is not accessible from outside)
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------------- -->
 
-<!-- Question 9: -->
+<!-- Question 9: Memoization -->
+
+  Memoization is a technique used to improve the performance of a function by caching (storing) the results of expensive function calls and returning the cached result when the same inputs occur again. This helps avoid re-computation and speeds up the function for repeated inputs.
+
+In simple terms:
+
+First time you call the function with a certain input, it calculates the result and stores it.
+
+Next time you call the function with the same input, it returns the result from the cache, instead of recalculating it.
+
+
+Real-Life Example:
+  Imagine you’re trying to add 20 to a number. Each time you call the function with the same number, you don’t want to redo the same math over and over again. Instead, the function remembers the result and just gives it back quickly when you ask for it again.
+
+Code Example of Memoization
+
+const memoizeAddition = () => {
+  let cache = {};  // Cache to store results
+  return (value) => {
+    if (value in cache) {
+      console.log("Fetching from cache");
+      return cache[value]; // Return cached result if available
+    } else {
+      console.log("Calculating result");
+      let result = value + 20;  // Perform calculation
+      cache[value] = result;  // Store the result in cache
+      return result;
+    }
+  };
+};
+
+// Returned function from memoizeAddition
+const addition = memoizeAddition();
+console.log(addition(20)); // Output: 40 (Calculated)
+console.log(addition(20)); // Output: 40 (From cache)
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Question 10:  -->
+
+  In JavaScript, modules are a way to break down large codebases into smaller, manageable pieces, making code more maintainable and reusable. A module is essentially a file that contains code, which can be imported and exported between other files. JavaScript modules help in organizing code and preventing naming conflicts.
+
+Key Concepts:
+Exporting: The code or data that you want to share with other files can be exported from a module.
+
+Importing: You can bring in the exported code or data from another module into your current file.
+
+Types of Exports:
+Named Exports: Allows you to export multiple entities from a module. You can use these entities by importing them by name.
+
+Example:
+
+// math.js (module)
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+// main.js
+import { add, subtract } from './math';
+console.log(add(2, 3)); // 5
+console.log(subtract(5, 3)); // 2
+Default Exports: Allows you to export a single entity as the default from a module. It is helpful when you want to export a single object or function.
+
+Example:
+
+// car.js (module)
+export default function car() {
+  console.log("This is a car!");
+}
+
+// main.js
+import car from './car';
+car(); // This is a car!
+
+<!-- ----------------------------------------------------------------------------------------------------------------- -->---------
+
+<!--Question 10  :Promises in JavaScript -->
+
+  A Promise is a special JavaScript object that represents the future result of an asynchronous operation.
+  The result can either be:
+
+A resolved value (successful completion) or
+
+A rejected reason (failure, like a network error).
+
+When you create a Promise, it immediately starts the asynchronous task you describe inside it.
+The promise can be in one of three states:
+
+Pending (initial state, waiting)
+
+Fulfilled (operation completed successfully)
+
+Rejected (operation failed with an error)
+
+
+➔ Syntax of Promise
+Creating a Promise:
+
+const promise = new Promise(function (resolve, reject) {
+  // Your asynchronous operation here
+});
+
+Example Usage:
+
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("I'm a Promise!");
+  }, 5000);
+});
+
+promise.then((value) => console.log(value));
+
+
+✅ In the example:
+
+After 5 seconds, the Promise will resolve with the value "I'm a Promise!".
+
+.then() is used to handle the resolved value.
+
+
+➔ Why Do We Need Promises?
+Before Promises, JavaScript used callbacks to handle async operations (like API requests).
+However, callbacks often led to callback hell — a messy, hard-to-read, pyramid-like code structure.
+
+
+Promises solve this problem by:
+
+Making code easier to read and maintain.
+
+Allowing us to chain async operations neatly using .then().
+
+Providing better error handling using .catch().
+
+
+✅ In simple words:
+
+Promises help you manage things that take time, like getting data from a server, in a cleaner and more organized way.
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 11:  -->
