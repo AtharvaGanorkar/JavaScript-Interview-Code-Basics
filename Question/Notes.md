@@ -867,4 +867,323 @@ Combined result: "H" + "ello" → "Hello"
 <!-- ------------------------------------------------------------------------------------------------------------------------------- -->
 
 
-<!-- Question 18: -->
+<!-- Question 18: What is an async Function in JavaScript? -->
+
+➡️ Definition:
+An async function is a special type of JavaScript function declared using the async keyword. It allows you to write asynchronous code that looks and behaves like synchronous code, making it easier to read, write, and manage.
+
+Async functions always return a Promise. If the function returns a value, it is automatically wrapped in a resolved Promise. If an error is thrown, it becomes a rejected Promise.
+
+➡️ Syntax:
+
+async function functionName() {
+  // Your code
+}
+
+➡️ Basic Example:
+
+async function logger() {
+  let response = await fetch("http://someapi.com/users");
+  let data = await response.json(); // parsing JSON from response
+  console.log(data);
+}
+
+logger();
+In this example, the await keyword pauses execution inside the async function until the Promise returned by fetch() is resolved.
+
+➡️ Key Characteristics:
+async makes a function return a Promise.
+await pauses the function execution until the Promise resolves or rejects.
+Helps avoid callback hell and promise chaining.
+Can only use await inside an async function.
+
+➡️ Error Handling with async/await:
+
+async function fetchData() {
+  try {
+    const res = await fetch("http://api.com/data");
+    const data = await res.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+Errors in async functions can be caught using try...catch, making error handling straightforward and clean.
+
+➡️ Interview-Ready Answer:
+"An async function in JavaScript is a function defined using the async keyword that returns a Promise and allows the use of the await keyword inside it. This enables writing asynchronous code in a synchronous style, making it more readable and easier to manage than traditional Promise chains or callbacks. It's particularly useful for working with APIs and handling asynchronous operations cleanly."
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 19 : What is the Rest Operator in JavaScript? -->
+
+📌 Definition:
+The rest operator (...) in JavaScript is used to represent an indefinite number of arguments as an array. It allows you to group the remaining parameters into a single array variable.
+
+The rest operator is primarily used in function parameters to collect all remaining arguments into one array.
+
+📘 Syntax:
+
+function myFunction(...args) {
+  console.log(args);
+}
+
+✅ Explanation:
+The ... operator used as a function parameter tells JavaScript:
+
+“Put the remaining arguments into an array.”
+It must be the last parameter in the function definition.
+It helps you handle variable numbers of arguments more cleanly than using arguments object.
+
+💡 Example:
+
+function sum(...numbers) {
+  return numbers.reduce((acc, curr) => acc + curr, 0);
+}
+
+console.log(sum(1, 2));          // Output: 3
+console.log(sum(1, 2, 3, 4, 5)); // Output: 15
+
+In this example:
+All the arguments passed to sum() are collected into the numbers array.
+reduce() is then used to sum up all values.
+
+🧠 Use Cases:
+Handling unknown numbers of arguments in functions.
+Creating functions like Math.max() or custom sum(), average().
+Simplifying code compared to using the arguments object.
+
+
+🎯 Interview Answer (How to Say It):
+
+“The rest operator in JavaScript is represented by three dots ... and is used to collect the remaining function arguments into an array. It helps when the number of arguments isn’t fixed. For example, in a sum function, I can use ...numbers to capture all values and then use reduce() to return their total. It's cleaner and more flexible than the older arguments object. It must be the last parameter in the function declaration.”
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 20: ✅ What is the Spread Operator in JavaScript? -->
+
+📌 Definition:
+The spread operator (...) in JavaScript is used to expand iterable elements (like arrays, objects, or strings) into individual elements.
+It is often used to copy, merge, or pass elements individually.
+
+The spread operator does the opposite of the rest operator.
+
+📘 Syntax:
+
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]
+
+✅ Explanation:
+The spread operator "spreads out" an iterable (array, string, object) into individual elements or properties.
+
+It’s useful when you want to:
+Clone arrays/objects
+Merge arrays/objects
+Pass elements of an array as individual arguments
+
+
+💡 Examples:
+
+1. Spread in Arrays:
+
+const fruits = ['apple', 'banana'];
+const moreFruits = [...fruits, 'cherry'];
+
+console.log(moreFruits); // ['apple', 'banana', 'cherry']
+
+2. Spread in Function Arguments:
+
+const nums = [1, 2, 3];
+console.log(Math.max(...nums)); // 3
+
+3. Spread in Objects (ES2018+):
+
+const user = { name: "Alice", age: 25 };
+const updatedUser = { ...user, age: 26 };
+
+console.log(updatedUser); // { name: "Alice", age: 26 }
+
+
+⚖️ Rest vs Spread Operator:
+
+Feature	             Rest Operator	               Spread Operator
+Purpose	            Collect remaining items	        Expand items
+Use Case	          Function parameters	            Function calls, arrays, objects
+Syntax Example	     function(...args)	             Math.max(...arr)
+
+
+🧠 Interview Answer (How to Say It):
+“The spread operator in JavaScript is written as three dots ..., and it's used to expand iterable items like arrays or objects into individual elements. For example, if I want to clone or merge arrays or pass an array into a function as separate arguments, I can use the spread operator. It's very powerful and is the opposite of the rest operator, which collects items instead of spreading them out.”
+
+<!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 21: What is the for...of Loop in JavaScript? -->
+
+📌 Definition:
+The for...of loop is a modern JavaScript loop introduced in ES6 that allows you to iterate over iterable objects like:
+
+Arrays
+Strings
+Maps
+Sets
+NodeLists
+
+It gives you direct access to the values of the iterable, rather than the index or property name.
+
+📘 Syntax:
+
+for (const element of iterable) {
+  // code block to execute
+}
+
+✅ Explanation:
+The for...of loop iterates over the values in an iterable (not keys or indices).
+It is useful when you don’t care about the index and only need to access values.
+
+
+💡 Examples:
+
+1. Iterating over an Array:
+
+const fruits = ['apple', 'banana', 'cherry'];
+
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+// Output:
+// apple
+// banana
+// cherry
+
+
+2. Iterating over a String:
+
+const name = "John";
+
+for (const char of name) {
+  console.log(char);
+}
+
+// Output:
+// J
+// o
+// h
+// n
+
+
+3. Iterating over a Map:
+
+const userMap = new Map([
+  ['name', 'Alice'],
+  ['age', 25]
+]);
+
+for (const [key, value] of userMap) {
+  console.log(`${key}: ${value}`);
+}
+
+// Output:
+// name: Alice
+// age: 25
+
+🧠 Interview Answer (How to Say It):
+“The for...of loop is used to iterate directly over the values of an iterable, like arrays, strings, or sets. It provides a cleaner and more readable syntax than traditional loops when we don't care about the index. For example, for (let item of array) will give us each item in the array directly. It’s often preferred over for...in when dealing with iterables, as for...in loops over keys or property names.”
+
+<!-- ------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 22: What is the for...in Loop in JavaScript? -->
+
+📌 Definition:
+The for...in loop is used in JavaScript to iterate over the enumerable properties (keys) of an object. It can also be used with arrays, but it’s not recommended for arrays due to possible unexpected results (like inherited properties).
+
+📘 Syntax:
+
+for (const key in object) {
+  // code to execute using object[key]
+}
+
+✅ Explanation:
+It iterates over keys (property names) of an object.
+Works well for objects, but not ideal for arrays because it may iterate over inherited keys or non-numeric keys.
+
+💡 Examples:
+1. Iterating over an Object:
+
+const person = {
+  name: 'Alice',
+  age: 30,
+  city: 'New York'
+};
+
+for (const key in person) {
+  console.log(`${key}: ${person[key]}`);
+}
+
+// Output:
+// name: Alice
+// age: 30
+// city: New York
+
+
+2. Using for...in on an Array (Not Recommended):
+
+const colors = ['red', 'green', 'blue'];
+
+for (const index in colors) {
+  console.log(index, colors[index]);
+}
+
+// Output:
+// 0 red
+// 1 green
+// 2 blue
+
+👉 It works, but not safe for arrays because:
+The index is returned as a string.
+It can iterate over custom or inherited properties.
+
+
+🧠 Interview Answer (How to Say It):
+“The for...in loop in JavaScript is used to iterate over the enumerable property names (keys) of an object. It's useful when you want to access all the keys in an object and perform operations using those keys. However, it is not suitable for arrays, because it can include unexpected keys like custom properties or inherited methods. For array values, for...of is generally preferred.”
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- QUestion 23: What is the Nullish Coalescing Operator (??)? -->
+
+🟦 1. Definition:
+The nullish coalescing operator (??) is a logical operator that returns the right-hand operand when the left-hand operand is null or undefined, and otherwise returns the left-hand operand.
+
+🟩 2. Syntax:
+
+let result = a ?? b;
+
+If a is not null or undefined, result = a.
+If a is null or undefined, result = b.
+
+🧠 3. Key Difference from || (Logical OR):
+
+Operator	Returns Right-Side If Left-Side Is...
+`	
+??	Only if null or undefined
+
+💡 4. Examples:
+
+console.log(null ?? "default");      // "default"
+console.log(undefined ?? "default"); // "default"
+console.log(false ?? "default");     // false  ✅ (not null/undefined)
+console.log(0 ?? 42);                // 0      ✅
+console.log("" ?? "empty");          // ""     ✅
+
+📌 Explanation:
+null ?? "default" → "default" because left side is null.
+false ?? "default" → false because it’s a valid value (not null/undefined).
+0 ?? 42 → 0 is returned because 0 is not null or undefined.
+With ||, false || "default" would return "default" (since false is falsy), but ?? respects false, 0, and '' as valid.
+
+
+🎯 Interview-Ready Answer:
+"The nullish coalescing operator (??) in JavaScript is used to provide a fallback value when the left-hand operand is null or undefined. It is particularly useful when you want to assign defaults, but still accept values like 0, false, or an empty string—unlike the || operator, which treats all falsy values the same. This operator allows cleaner, more predictable defaults without unintentionally overwriting valid data."
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
