@@ -1786,3 +1786,396 @@ Examples: Angular, Vue.js, Next.js, Express.js
 
 <!-- Question 35: 📘 What is Hoisting in JavaScript?
  -->
+
+ ✅ Definition:
+Hoisting is JavaScript’s default behavior of moving declarations (not initializations) to the top of the current scope (either global or function scope) during the compilation phase, before code execution.
+
+In simple terms:
+You can use variables and functions before you declare them in the code, because JavaScript “hoists” their declarations to the top of the scope.
+
+🧠 Important Points:
+Only declarations are hoisted, not initializations/assignments.
+
+var, function declarations are hoisted.
+
+let and const are also hoisted, but not initialized, so accessing them before declaration results in a ReferenceError due to the Temporal Dead Zone (TDZ).
+
+
+💡 Example 1: Variable hoisting with var
+
+console.log(x); // undefined
+var x = 5;
+
+Explanation:
+JavaScript interprets the code as:
+
+var x;
+console.log(x); // undefined
+x = 5;
+
+❌ Example 2: let and const are not accessible before declaration
+
+console.log(y); // ReferenceError: Cannot access 'y' before initialization
+let y = 10;
+
+
+💡 Example 3: Function hoisting
+
+greet(); // "Hello!"
+function greet() {
+  console.log("Hello!");
+}
+Function declarations are hoisted entirely (both name and body).
+
+❌ Function expressions are NOT hoisted
+
+sayHello(); // TypeError: sayHello is not a function
+
+var sayHello = function () {
+  console.log("Hello!");
+};
+
+🗣️ How to Explain in an Interview:
+"Hoisting is JavaScript's behavior of moving declarations to the top of the scope during the compilation phase. Variables declared with var are hoisted and initialized with undefined, while let and const are hoisted but not initialized, causing a Temporal Dead Zone. Function declarations are fully hoisted, but function expressions and arrow functions behave like variables. Understanding hoisting helps avoid bugs related to using variables or functions before they are defined."
+
+<!-- ------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 36: 🧠 What is Local Storage and Session Storage? -->
+
+Both Local Storage and Session Storage are part of the Web Storage API, allowing you to store key-value pairs in a user's browser.
+
+They differ primarily in lifetime and scope.
+
+📌 1. Local Storage
+✅ Definition:
+Local Storage allows you to store data with no expiration time. The data persists even after the browser is closed and reopened.
+
+🛠️ Example:
+
+// Set item
+localStorage.setItem("username", "John");
+
+// Get item
+let name = localStorage.getItem("username");
+console.log(name); // "John"
+
+// Remove item
+localStorage.removeItem("username");
+
+// Clear all items
+localStorage.clear();
+
+
+📂 Use Case:
+Saving user preferences
+
+Remembering login info (non-sensitive)
+
+Dark/light theme settings
+
+
+
+📌 2. Session Storage
+✅ Definition:
+Session Storage stores data only for the duration of the page session. The data is cleared when the page is closed (or the tab is closed).
+
+🛠️ Example:
+
+// Set item
+sessionStorage.setItem("sessionID", "12345");
+
+// Get item
+let sessionID = sessionStorage.getItem("sessionID");
+console.log(sessionID); // "12345"
+
+// Remove item
+sessionStorage.removeItem("sessionID");
+
+// Clear all items
+sessionStorage.clear();
+
+📂 Use Case:
+Temporary form data
+
+Keeping track of a user’s activity within a tab
+
+
+
+🗣️ How to explain in an interview:
+“Local Storage and Session Storage are both part of the Web Storage API in JavaScript. Local Storage stores data without expiration and persists even after the browser is closed. In contrast, Session Storage stores data only for the duration of the tab session. Both use key-value pairs and are useful for client-side caching, form handling, and improving user experience without needing a server.”
+
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 37:✅ What is the Ternary Operator in JavaScript?
+  -->
+
+The ternary operator is a shorthand way of writing an if-else statement in JavaScript. It is used to evaluate a condition and return one of two values based on whether the condition is true or false.
+
+📌 Syntax:
+
+condition ? expressionIfTrue : expressionIfFalse;
+condition: A boolean expression.
+
+If the condition is true, expressionIfTrue is executed.
+
+If the condition is false, expressionIfFalse is executed.
+
+🧠 Example:
+
+let age = 18;
+
+let result = age >= 18 ? "Eligible to vote" : "Not eligible to vote";
+
+console.log(result); // Output: Eligible to vote
+
+This is equivalent to:
+
+if (age >= 18) {
+  result = "Eligible to vote";
+} else {
+  result = "Not eligible to vote";
+}
+
+
+🧠 Nested Ternary (Use with caution for readability):
+
+let score = 85;
+
+let grade = score > 90
+  ? "A"
+  : score > 75
+  ? "B"
+  : "C";
+
+console.log(grade); // Output: B
+🗣️ How to explain in an interview:
+"The ternary operator in JavaScript is a concise alternative to if-else statements. It uses condition ? trueResult : falseResult syntax and helps reduce lines of code for simple conditional logic. However, I avoid deeply nested ternaries as they hurt readability."
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 38: what is higher order Function -->
+
+A Higher-Order Function (HOF) is a function that either:
+
+Takes one or more functions as arguments,
+
+Returns a function as its result,
+
+Or does both.
+
+This concept is a key part of functional programming and makes code more modular, reusable, and easier to maintain.
+
+📌 Example 1: A function that accepts another function as an argument
+
+function greet(name) {
+  return "Hello " + name;
+}
+
+function processUserInput(callback) {
+  let name = "John";
+  console.log(callback(name));
+}
+
+processUserInput(greet); // Output: Hello John
+In this example, processUserInput is a higher-order function because it takes greet (a function) as an argument.
+
+📌 Example 2: A function that returns another function
+
+function multiplier(factor) {
+  return function (number) {
+    return number * factor;
+  };
+}
+
+const double = multiplier(2);
+console.log(double(5)); // Output: 10
+Here, multiplier is a higher-order function because it returns a new function.
+
+📌 Real-world Examples in JavaScript:
+Array methods like map(), filter(), and reduce() are higher-order functions because they take a callback function as an argument.
+
+const numbers = [1, 2, 3, 4];
+
+const doubled = numbers.map((num) => num * 2);
+console.log(doubled); // Output: [2, 4, 6, 8]
+
+🗣️ How to explain in an interview:
+"A Higher-Order Function is a function that can take other functions as arguments or return a function. JavaScript supports this behavior since functions are treated as first-class citizens. Common use cases include functional programming patterns like map, filter, and reduce, which improve readability and code reusability."
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Question 39:Array Methods in JavaScript -->
+
+ JavaScript arrays come with many built-in methods to perform common operations like adding, removing, transforming, searching, or iterating elements. These methods are divided into mutating (change the original array) and non-mutating (return a new array without changing the original).
+
+
+🔹 Mutating Methods (Change the original array)
+Method	                                     Description
+push()	                                       Adds one or more elements to the end of an array.
+pop()	                                         Removes the last element from an array.
+shift()	                                       Removes the first element from an array.
+unshift()	                                     Adds one or more elements to the beginning of an array.
+splice()	                                     Adds or removes elements at any index.
+sort()	                                       Sorts the elements of an array in place.
+reverse()	                                     Reverses the order of elements in the array.
+fill()	                                       Fills all elements with a static value.
+copyWithin()	                                 Copies part of the array to another location in the same array.
+
+Example:
+
+let arr = [1, 2, 3];
+arr.push(4);         // [1, 2, 3, 4]
+arr.pop();           // [1, 2, 3]
+arr.unshift(0);      // [0, 1, 2, 3]
+arr.shift();         // [1, 2, 3]
+arr.splice(1, 1);    // [1, 3] — removed 1 element at index 1
+
+
+🔸 Non-Mutating Methods (Do not change the original array)
+
+
+Method	                                                          Description
+map()	                                   Returns a new array with results of applying a function to every element.
+filter()	                               Returns a new array with elements that pass a condition.
+reduce()	                               Reduces array to a single value using a reducer function.
+forEach()	                               Executes a provided function once for each array element.
+concat()	                               Merges two or more arrays.
+slice()	                                 Extracts a section of an array without modifying the original.
+includes()	                             Checks if an array contains a specific value.
+indexOf()	                               Returns the first index at which a given element is found.
+find()	                                 Returns the first element that satisfies a condition.
+some()	                                 Checks if any elements pass a condition.
+every()	                                 Checks if all elements pass a condition.
+flat()	                                 Flattens nested arrays into a single-level array.
+join()	                                 Joins all elements into a string.
+
+
+Example:
+
+let nums = [1, 2, 3, 4, 5];
+
+let doubled = nums.map(n => n * 2);    // [2, 4, 6, 8, 10]
+let evens = nums.filter(n => n % 2 === 0); // [2, 4]
+let sum = nums.reduce((acc, val) => acc + val, 0); // 15
+
+
+🗣️ How to explain in an interview:
+"JavaScript arrays have built-in methods that help manipulate and transform data. Mutating methods like push(), pop(), and splice() change the original array, while non-mutating methods like map(), filter(), and reduce() return new arrays or values without modifying the source.
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Question 40: map(), filter(), reduce(), and forEach() in JavaScript-->
+
+📌 map() Method
+✅ Definition:
+The map() method creates a new array by applying a provided function to each element of the original array. It does not modify the original array.
+
+🔹 Syntax:
+
+array.map(callback(currentValue, index, array), thisArg)
+
+🔹 Example:
+
+const numbers = [1, 2, 3];
+const doubled = numbers.map(num => num * 2);
+console.log(doubled); // [2, 4, 6]
+
+🗣️ Interview Explanation:
+"map() is used when I want to transform every element in an array and get back a new array with the same length. It's useful when I'm applying the same operation—like multiplying each number by 2 or converting data format."
+
+📌 filter() Method
+✅ Definition:
+The filter() method creates a new array with only the elements that pass a test condition defined in a callback function.
+
+🔹 Syntax:
+array.filter(callback(currentValue, index, array), thisArg)
+
+🔹 Example:
+
+const numbers = [1, 2, 3, 4, 5];
+const evens = numbers.filter(num => num % 2 === 0);
+console.log(evens); // [2, 4]
+
+🗣️ Interview Explanation:
+"filter() is useful when I want to exclude certain elements from an array based on a condition—like filtering even numbers or removing empty values. It returns a new array with only the items that meet the condition."
+
+📌 reduce() Method
+✅ Definition:
+The reduce() method executes a reducer function on each element of the array, resulting in a single output value. It's ideal for tasks like summing, multiplying, or combining array elements into a single result.
+
+🔹 Syntax:
+
+array.reduce(callback(accumulator, currentValue, index, array), initialValue)
+
+🔹 Example:
+
+const numbers = [1, 2, 3, 4];
+const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+console.log(sum); // 10
+
+🗣️ Interview Explanation:
+"reduce() helps me take an array and boil it down into one value—like calculating totals, averages, or merging data. It’s very powerful and flexible, especially for processing large datasets."
+
+📌 forEach() Method
+✅ Definition:
+The forEach() method executes a provided function once for each array element. Unlike map(), it does not return a new array.
+
+🔹 Syntax:
+array.forEach(callback(currentValue, index, array), thisArg)
+
+🔹 Example:
+
+const names = ['Alice', 'Bob', 'Charlie'];
+names.forEach(name => console.log(name));
+// Output:
+// Alice
+// Bob
+// Charlie
+
+const numbers = [1, 2, 3, 4];
+numbers.forEach(num => console.log(num * 2));
+// Output: 2 4 6 8 (but returns undefined)
+
+🧠 Use when: You want to do something with each item but don't need a return value.
+
+
+🗣️ Interview Explanation:
+"forEach() is mainly used when I want to perform an operation or side effect like logging or updating the DOM for each item in an array. It doesn’t return anything—just processes each element."
+
+<!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 41:map() vs forEach() in JavaScript -->
+
+Feature	                      map()	                                              forEach()
+
+Return Value	                Returns a new array	                                Returns undefined
+Purpose	                      To transform each element and return	              To perform side-effects (e.g., logging)
+Chaining                     	Can be chained with other array methods	            Cannot be chained
+Immutability	                Does not modify the original array	                Does not modify the original array
+Use Case	                    Use when you need the result of operation	          Use when you only need to do something
+
+✅ Example with map()
+
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map(num => num * 2);
+console.log(doubled); // [2, 4, 6, 8]
+
+📌 map() returns a new array with the results.
+
+
+✅ Example with forEach()
+
+const numbers = [1, 2, 3, 4];
+numbers.forEach(num => console.log(num * 2));
+// Output: 2 4 6 8 (but no array is returned)
+
+📌 forEach() executes a function for each item, but returns nothing.
+
+🗣️ How to Explain in an Interview:
+"map() is used when I want to transform every element in an array and get a new array with the transformed values. On the other hand, forEach() is useful when I just want to perform side effects like logging or updating the DOM for each item, without creating a new array."
+
+<!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 42: -->
+
+
