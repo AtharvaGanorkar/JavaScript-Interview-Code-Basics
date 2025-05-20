@@ -1185,5 +1185,604 @@ With ||, false || "default" would return "default" (since false is falsy), but ?
 "The nullish coalescing operator (??) in JavaScript is used to provide a fallback value when the left-hand operand is null or undefined. It is particularly useful when you want to assign defaults, but still accept values like 0, false, or an empty string—unlike the || operator, which treats all falsy values the same. This operator allows cleaner, more predictable defaults without unintentionally overwriting valid data."
 
 <!-- ------------------------------------------------------------------------------------------------------------------ -->
+<!-- Question 24: 🔹 What is a First-Class Function? (Simple Version) -->
+
+In JavaScript, functions are treated like regular values or variables. This means you can:
+
+Store a function in a variable
+
+Pass a function to another function
+
+Return a function from another function
+
+This ability makes them “first-class functions.”
+
+✅ Example:
+1. Store in a variable:
+
+const sayHi = function() {
+  console.log("Hi!");
+};
+
+sayHi(); // Output: Hi!
+
+2. Pass as a parameter:
+
+function greet(callback) {
+  callback(); // call the function passed
+}
+
+greet(sayHi); // Output: Hi!
+
+3. Return a function:
+
+function getGreeting() {
+  return function() {
+    console.log("Hello from the inner function!");
+  };
+}
+
+const greetFunc = getGreeting();
+greetFunc(); // Output: Hello from the inner function!
+
+🧠 Interview Tip – How to Say It:
+"In JavaScript, functions are first-class because they can be treated like values. You can save them in variables, send them to other functions, or even return them from functions. This makes JavaScript powerful and flexible, especially for things like callbacks and asynchronous code."
 
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 25 :🔹 What is a Pure Function in JavaScript? -->
+
+A pure function is a function that:
+
+Always gives the same output for the same input.
+
+Does not cause any side effects (like modifying a global variable, changing a file, or updating the DOM).
+
+✅ Example of a Pure Function:
+
+function add(a, b) {
+  return a + b;
+}
+
+console.log(add(2, 3)); // Always returns 5
+📌 Here:
+
+The output only depends on the inputs (a and b).
+
+No external state is changed.
+
+🧠 Interview Answer – Pure Function:
+"A pure function is one that always returns the same output for the same input and doesn’t change or depend on anything outside itself. This makes the function predictable, easy to test, and helps with debugging."
+
+<!-- 🔸 What is an Impure Function in JavaScript? -->
+
+An impure function is a function that:
+
+Produces different output for the same input.
+
+Causes side effects like modifying global variables, updating UI, writing to files, or calling APIs.
+
+❌ Example of an Impure Function:
+
+let count = 0;
+
+function increment() {
+  count++;
+  return count;
+}
+
+console.log(increment()); // 1
+console.log(increment()); // 2
+
+📌 Here:
+
+The result depends on and changes a variable outside the function.
+
+The output will vary even with the same call.
+
+🧠 Interview Answer – Impure Function:
+"An impure function either changes something outside of its scope (like a global variable or the DOM) or gives different results each time it’s called with the same input. This makes it harder to test and debug."
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Question 26: 🔹 What is Function Currying in JavaScript? -->
+
+Currying is a technique in JavaScript where a function, instead of taking all arguments at once, takes one argument at a time and returns a new function for the next argument — until all arguments are provided.
+
+✅ Why Use Currying?
+It allows function reuse and composition.
+
+Helps in creating specialized functions from general ones.
+
+It enhances readability and modularity in functional programming.
+
+🧠 Simple Explanation:
+Instead of writing a function like this:
+
+function add(a, b) {
+  return a + b;
+}
+add(2, 3); // 5
+
+In curried form, it looks like this:
+
+function add(a) {
+  return function(b) {
+    return a + b;
+  };
+}
+
+const addTwo = add(2);
+console.log(addTwo(3)); // 5
+
+✔ add(2) returns a new function that remembers the value 2, and waits for the second argument.
+
+✅ Currying Using ES6 Arrow Functions:
+
+
+const add = a => b => a + b;
+
+console.log(add(5)(10)); // 15
+🧠 Interview Answer:
+"Currying is a functional programming technique in JavaScript where a function doesn’t take all arguments at once. Instead, it takes the first argument and returns another function for the second, and so on. This makes it easier to create reusable and modular functions".
+
+<!-- -------------------------------------------------------------------------------------------------------------------------->
+
+<!-- Question 27: 🔹 What is a Function Expression in JavaScript? -->
+
+A function expression is a way to define a function in JavaScript by assigning it to a variable, often anonymously (without a name). It allows functions to be treated like values—they can be passed as arguments, returned from other functions, or assigned to variables.
+
+✅ Syntax of Function Expression:
+
+const greet = function() {
+  console.log("Hello!");
+};
+
+greet(); // Output: Hello!
+
+Here, a function is created and assigned to the variable greet. The function can then be called using greet().
+
+✅ Named Function Expression:
+
+const greet = function sayHello() {
+  console.log("Hello!");
+};
+
+greet(); // ✅ Works
+// sayHello(); ❌ Error (sayHello is not accessible outside)
+The name sayHello is local to the function’s body, not available in the outer scope.
+
+🔁 Function Declaration vs Function Expression
+Feature	                  Function Declaration	              Function Expression
+Syntax	                    function greet() {}	                const greet = function() {}
+Hoisting	                     ✅ Yes	                             ❌ No
+Can be anonymous	             ❌ No	                               ✅ Yes
+Called before defined?	       ✅ Yes	                             ❌ No (must be defined first)
+
+
+🧠 Interview Answer:
+"A function expression is when a function is assigned to a variable. It can be anonymous or named, and unlike function declarations, it is not hoisted. This means it can only be used after its definition. Function expressions are commonly used in callbacks, event handlers, and closures."
+
+<!-- ------------------------------------------------------------------------------------------------------------------------- >
+
+<!-- Question 27: what are Data Types in Javascript ? Primitive vs non primitive -->
+
+In JavaScript, data types represent the kind of value a variable can hold. They are categorized into two main groups:
+
+✅ 1. Primitive Data Types
+These are immutable (cannot be changed) and hold single values. They are passed by value.
+
+Data                    Type	                                     Description
+String	              Textual                                   data: "hello", 'abc'
+Number	              Numeric                                   data: 1, 2.5, -10, Infinity, NaN
+Boolean	              Logical                                   value: true or false
+Undefined	               A variable that is declared but not assigned a value
+Null	                         Represents "no value" or "empty object"
+Symbol	                       Unique identifier (introduced in ES6)
+BigInt	                For large integers beyond the safe limit of Number type
+
+
+🧪 Example of Primitive Types:
+
+let name = "Alice";        // String
+let age = 25;              // Number
+let isStudent = true;      // Boolean
+let score;                 // Undefined
+let data = null;           // Null
+let id = Symbol("id");     // Symbol
+let bigNumber = 1234567890123456789012345678901234567890n; // BigInt
+
+<!--  -->
+
+✅ 2. Non-Primitive (Reference) Data Types
+These are mutable and can store multiple values. They are passed by reference.
+
+Data Type	                     Description
+Object	                   Collection of key-value pairs
+Array	                     Ordered list of values (special type of object)
+Function	                 A block of code that can be called
+Date, RegExp, Map, Set	   Built-in complex types
+
+<!-- ------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 28: 🔍 What is Optional Chaining in JavaScript? -->
+
+Optional Chaining (?.) is a feature in JavaScript that allows you to safely access deeply nested object properties without having to check if each reference in the chain is valid (i.e., not null or undefined).
+
+✅ Why Use Optional Chaining?
+When accessing nested object properties, JavaScript would normally throw an error if any part of the chain is undefined or null. Optional chaining prevents these errors by gracefully returning undefined instead of throwing an error.
+
+🧪 Example Without Optional Chaining:
+
+const user = {
+  profile: {
+    name: "Alice"
+  }
+};
+
+console.log(user.profile.name);     // ✅ Works
+console.log(user.address.city);     // ❌ Error: Cannot read property 'city' of undefined
+
+🧪 With Optional Chaining:
+
+console.log(user.address?.city);    // ✅ undefined (no error)
+
+🧪 More Examples:
+
+let user = {
+  name: "Bob",
+  location: {
+    city: "New York"
+  }
+};
+
+console.log(user?.location?.city);       // "New York"
+console.log(user?.job?.company);         // undefined
+
+let users = null;
+console.log(users?.[0]?.name);           // undefined
+
+🔑 Key Use Cases
+Use Case	                          Syntax Example
+Access nested properties	           obj?.prop?.subProp
+Call functions safely	               obj.method?.()
+Access array elements	               arr?.[index]
+
+🧠 Interview Answer:
+"Optional chaining is a feature introduced in ES2020 that allows safe access to nested properties without manually checking if each level exists. It uses the ?. operator, and if any part of the chain is null or undefined, it returns undefined instead of throwing an error. This is especially useful when working with API responses or user-generated content where data might be missing or incomplete."
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Question 29: 🔍 Promises vs. Async/Await — Which Is Better? -->
+
+Both Promises and async/await are used in JavaScript to handle asynchronous operations, like API calls, file reading, or timers. They solve the problem of callback hell and make asynchronous code easier to manage — but each has its own strengths.
+
+🔁 Promises
+✅ Definition:
+A Promise represents a value that may be available now, later, or never. It uses .then() for chaining and .catch() for handling errors.
+
+🧪 Example:
+
+fetch("https://api.example.com/data")
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+✅ Pros:
+Good for simple async chains
+
+Native support in browsers
+
+Works well with .then() and .catch() chaining
+
+❌ Cons:
+Can lead to "promise hell" with many chained .then() calls
+
+Harder to debug stack traces
+
+
+⏳ Async/Await
+✅ Definition:
+Async/Await is a syntax sugar over Promises introduced in ES2017. It allows you to write asynchronous code that looks synchronous.
+
+🧪 Example:
+
+async function getData() {
+  try {
+    const response = await fetch("https://api.example.com/data");
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+getData();
+✅ Pros:
+Cleaner, more readable code
+
+Easier to write and debug, especially with try...catch
+
+Looks synchronous but runs asynchronously
+
+❌ Cons:
+Requires modern environments (ES2017+)
+
+Still returns Promises under the hood (so you must handle them accordingly)
+
+🔍 Which Is Better?
+Feature                     	Promises	                             Async/Await
+Readability	                  😐 Moderate	                           ✅ Excellent
+Error Handling	              😐 Separate .catch()	                 ✅ try...catch block
+Chaining	                    ✅ Easy	                              😐 Needs nesting
+Debugging	                    ❌ More complex	                      ✅ Easier
+Learning Curve	              ✅ Simple	                            ✅ Simple (if you know Promises)
+
+🧠 Interview Answer:
+"Both Promises and async/await handle asynchronous operations in JavaScript. Promises are great for chaining multiple asynchronous actions and are supported in all modern environments. However, async/await makes the code more readable and easier to maintain, especially with complex logic and error handling using try...catch. Ultimately, async/await is preferred for its clarity and simplicity, though under the hood, it still uses Promises."
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 30:🔐 What is a Closure in JavaScript? -->
+
+✅ Definition:
+A closure is a function that remembers and continues to access variables from its lexical (outer) scope even after the outer function has finished executing.
+
+In simpler words:
+
+A closure is created when an inner function is defined inside an outer function, and the inner function remembers the variables declared in the outer function—even after the outer function has finished running.
+
+🧪 Example:
+
+function outerFunction() {
+  let outerVar = "I am outside!";
+
+  function innerFunction() {
+    console.log(outerVar); // Can still access outerVar
+  }
+
+  return innerFunction;
+}
+
+const myClosure = outerFunction(); // outerFunction is executed
+myClosure(); // Logs: "I am outside!"
+
+<!-- Why does this work? -->
+Even though outerFunction has finished executing, the returned innerFunction still remembers the variable outerVar. This retained access is what we call a closure.
+
+📌 Use Cases of Closures:
+Data privacy/encapsulation:
+
+function counter() {
+  let count = 0;
+
+  return function () {
+    count++;
+    console.log(count);
+  };
+}
+
+const increment = counter();
+increment(); // 1
+increment(); // 2
+
+SetTimeout loops
+
+Function factories
+
+Memoization (caching)
+
+🧠 How to explain in an interview:
+"A closure in JavaScript is created when a function retains access to variables from its outer scope even after the outer function has returned. Closures are useful for maintaining private variables, building function factories, and ensuring data isn't accessible globally. For example, if an inner function continues to access variables declared in an outer function after that outer function has executed, that’s a closure."
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 31: 📌 What are Events in JavaScript? -->
+
+✅ Definition:
+Events are actions or occurrences that happen in the browser, often triggered by user interactions (like clicking a button, submitting a form, typing, etc.) or browser activities (like page load, resizing window, etc.).
+
+JavaScript allows us to respond to these events using event listeners or handlers.
+
+🧪 Example:
+
+document.getElementById("btn").addEventListener("click", function () {
+  alert("Button clicked!");
+});
+This adds a click event listener to a button with ID btn.
+
+
+🔸 Common Types of Events in JavaScript
+
+1. Mouse Events:
+click – Fired when an element is clicked.
+
+dblclick – Fired when an element is double-clicked.
+
+mousedown / mouseup – When mouse button is pressed or released.
+
+mousemove – When the mouse pointer moves.
+
+mouseenter / mouseleave – When the mouse enters or leaves an element.
+
+
+2. Keyboard Events:
+keydown – When a key is pressed down.
+
+keyup – When a key is released.
+
+keypress – When a key is pressed and held (now deprecated in favor of keydown and keyup).
+
+
+3. Window Events:
+load – When the page is fully loaded.
+
+resize – When the browser window is resized.
+
+scroll – When the page is scrolled.
+
+unload – When the user leaves the page.
+
+
+4. Form Events:
+Form events are triggered on forms and form elements like <input>, <textarea>, <form>, etc.
+
+✅ Common Form Events:
+Event	                                       Description
+submit	                              Fired when a form is submitted.
+change	                              Fired when the value of an input changes (after focus loss).
+input	                                Fired every time the user types something.
+focus                               	When an element gains focus (like clicking into an input).
+blur	                                When an element loses focus.
+reset	                                When a form is reset.
+
+🧪 Example:
+
+<form id="myForm">
+  <input type="text" id="username" />
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent default page reload
+    alert("Form submitted!");
+  });
+</script>
+
+🗣️ How to Explain in an Interview:
+"Events in JavaScript are actions triggered either by the user or the browser, such as clicking, typing, or loading. JavaScript can listen for these events and respond using event listeners. Form events specifically allow us to capture and validate user input during typing, focusing, or submission. For example, the submit event helps validate forms before actually sending the data to the server."
+
+<!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 32: What are Lifecycle Methods of Function Components? -->
+
+Definition:
+In React class components, lifecycle methods (like componentDidMount, componentDidUpdate, componentWillUnmount) are special methods that run at different points of a component’s life — mounting, updating, and unmounting.
+
+In function components, there are no traditional lifecycle methods like in class components, but React provides Hooks to manage similar behaviors.
+
+🧪 How Function Components Handle Lifecycle
+React function components use Hooks such as:
+
+useEffect — to perform side effects that correspond to lifecycle events.
+
+useState — to manage component state.
+
+useEffect Hook:
+The useEffect hook lets you run code:
+
+After the component mounts (similar to componentDidMount).
+
+After the component updates (similar to componentDidUpdate).
+
+Before the component unmounts (using a cleanup function, similar to componentWillUnmount).
+
+
+🧪 Example: Using useEffect
+
+import React, { useState, useEffect } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  // Runs after every render (mount + update)
+  useEffect(() => {
+    console.log("Component mounted or updated");
+
+    // Cleanup function runs before unmounting
+    return () => {
+      console.log("Cleanup before unmount or before next effect run");
+    };
+  }, [count]); // Effect runs only when count changes
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+Explanation:
+The first argument to useEffect is a callback executed after render.
+
+The return function inside it is a cleanup function, called before unmount or before next effect call.
+
+The second argument is a dependency array that tells React when to re-run the effect.
+
+🗣️ How to explain in an interview:
+"In React function components, we don’t have traditional lifecycle methods like in class components. Instead, we use the useEffect hook to run side effects after render, similar to componentDidMount, componentDidUpdate, and componentWillUnmount in classes. By specifying dependencies, we control when the effect runs, and we can return a cleanup function to handle component unmount or update cleanup."
+
+<!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 33: Which Hook we will use for mounting , updating and unmounting? -->
+
+In React function components, the useEffect hook is used to handle mounting, updating, and unmounting—the same way lifecycle methods work in class components.
+
+Here’s how useEffect works for each:
+
+✅ 1. Mounting (Like componentDidMount)
+To run code once after the component mounts, use useEffect with an empty dependency array []:
+
+useEffect(() => {
+  console.log("Component mounted"); // Runs only once on initial render
+}, []);
+
+
+🔄 2. Updating (Like componentDidUpdate)
+To run code when specific state/props update, include those variables in the dependency array:
+
+useEffect(() => {
+  console.log("Component updated due to change in count");
+}, [count]); // Runs every time `count` changes
+
+If you omit the dependency array entirely:
+
+useEffect(() => {
+  console.log("Runs after every render");
+});
+That makes it run after every render, both mount and update.
+
+❌ 3. Unmounting (Like componentWillUnmount)
+To run cleanup code before the component unmounts, return a function from useEffect. This is useful for things like removing event listeners or clearing timers.
+
+
+useEffect(() => {
+  console.log("Mounted");
+
+  return () => {
+    console.log("Component will unmount"); // Cleanup code here
+  };
+}, []);
+
+🗣️ Interview Explanation:
+"We use the useEffect hook to handle all lifecycle phases in function components. When passed an empty dependency array, it acts like componentDidMount. When passed dependencies, it runs on updates like componentDidUpdate. If a cleanup function is returned from it, that function acts like componentWillUnmount, running before the component unmounts or before the next effect runs."
+
+<!-- ------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 34: 📚 Library vs Framework in JavaScript (and Web Development) -->
+
+Understanding the difference between a library and a framework is key for front-end and back-end JavaScript development. While both help in building applications, they differ in control and usage.
+
+✅ Definition
+🔹 Library:
+A collection of pre-written code that you call to perform specific tasks.
+
+You are in control of the flow of the application.
+
+Examples: React, Lodash, jQuery, Axios
+
+🔸 Framework:
+A platform or structure that calls your code and provides a complete flow to build an application.
+
+The framework is in control and dictates how your code should be structured.
+
+Examples: Angular, Vue.js, Next.js, Express.js
+
+🗣️ Interview Answer Template
+"A library is like a toolbox where I pick specific tools when I need them. I stay in control of the flow. A framework, on the other hand, gives me a structured environment to build an application, and it calls my code based on its lifecycle or structure. React is a good example of a library, while Angular is a framework. The key difference is control—libraries offer more freedom, while frameworks offer more structure."
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Question 35: 📘 What is Hoisting in JavaScript?
+ -->
